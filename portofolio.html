@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio & Gallery</title>
+    <style>
+        /* CSS Styling */
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            margin: 0; 
+            padding: 0; 
+            background-color: #f4f4f9; 
+            color: #333; 
+        }
+        header { 
+            background-color: #1a1a1a; 
+            color: #fff; 
+            padding: 3rem 0; 
+            text-align: center; 
+        }
+        header h1 { 
+            margin: 0; 
+            font-size: 2.8rem; 
+            letter-spacing: 1px;
+        }
+        header p { 
+            margin: 10px 0 0; 
+            font-size: 1.2rem; 
+            color: #cccccc; 
+        }
+        .container { 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            padding: 40px 20px; 
+        }
+        .section-title { 
+            text-align: center; 
+            margin-bottom: 40px; 
+            font-size: 2rem; 
+            color: #1a1a1a; 
+            border-bottom: 2px solid #ddd; 
+            padding-bottom: 10px; 
+        }
+
+        /* Gallery Grid Layout */
+        .gallery { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
+            gap: 30px; 
+        }
+        .gallery-item { 
+            background: #fff; 
+            border-radius: 12px; 
+            overflow: hidden; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08); 
+            transition: transform 0.3s ease, box-shadow 0.3s ease; 
+        }
+        .gallery-item:hover { 
+            transform: translateY(-8px); 
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+        .gallery-item img { 
+            width: 100%; 
+            height: 250px; 
+            object-fit: cover; 
+            display: block; 
+        }
+        .gallery-info { 
+            padding: 20px; 
+        }
+        .gallery-info h3 { 
+            margin: 0 0 10px; 
+            font-size: 1.3rem; 
+            color: #222;
+        }
+        .gallery-info p { 
+            margin: 0; 
+            color: #666; 
+            font-size: 1rem; 
+            line-height: 1.5;
+        }
+
+        footer { 
+            text-align: center; 
+            padding: 30px; 
+            background-color: #1a1a1a; 
+            color: #fff; 
+            margin-top: 40px; 
+        }
+        footer a {
+            color: #4da6ff;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Alex's Creative Portfolio</h1>
+    <p>Showcasing my competition entries, designs, and projects</p>
+</header>
+
+<div class="container">
+    <h2 class="section-title">Projects & Competitions Gallery</h2>
+
+    <div class="gallery">
+        <div class="gallery-item">
+            <img src="https://via.placeholder.com/600x400?text=Project+1+Image" alt="Competition 1">
+            <div class="gallery-info">
+                <h3>First Place - Design Hackathon</h3>
+                <p>A brief description of your project. Explain what the competition was and how you contributed to the winning design.</p>
+            </div>
+        </div>
+
+        <div class="gallery-item">
+            <img src="https://via.placeholder.com/600x400?text=Project+2+Image" alt="Project 2">
+            <div class="gallery-info">
+                <h3>Science Fair Innovation</h3>
+                <p>My interactive model that won the district innovation award. Built using recycled materials and basic electronics.</p>
+            </div>
+        </div>
+
+        <div class="gallery-item">
+            <img src="https://via.placeholder.com/600x400?text=Project+3+Image" alt="Photography Contest">
+            <div class="gallery-info">
+                <h3>National Photography Contest</h3>
+                <p>Selected as a top 10 finalist out of 5,000 entries. This piece focuses on urban architecture and light.</p>
+            </div>
+        </div>
+        
+        <div class="gallery-item">
+            <img src="https://via.placeholder.com/600x400?text=Project+4+Image" alt="App Development">
+            <div class="gallery-info">
+                <h3>Community App Prototype</h3>
+                <p>UI/UX design and wireframes for a local community initiative aimed at connecting volunteers with events.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2026 Your Name. Let's connect at: <a href="mailto:youremail@example.com">youremail@example.com</a></p>
+</footer>
+
+</body>
+</html>
