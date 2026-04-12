@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aircraft Designs — Satrio Arya Daniswara</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #0a1628;
+      --navy-mid: #0e1f3d;
+      --accent: #4f8ef7;
+      --accent2: #7eb8ff;
+      --white: #ffffff;
+      --text: rgba(255,255,255,0.88);
+      --muted: rgba(255,255,255,0.45);
+      --border: rgba(79,142,247,0.2);
+      --card: rgba(255,255,255,0.04);
+      --gold: #f59e0b;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--navy);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0;
+      background-image:
+        linear-gradient(rgba(79,142,247,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(79,142,247,0.04) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(10,22,40,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2rem; height: 60px;
+    }
+    .nav-back {
+      display: flex; align-items: center; gap: 0.5rem;
+      color: var(--accent); text-decoration: none;
+      font-size: 0.85rem; font-weight: 500; transition: gap 0.2s;
+    }
+    .nav-back:hover { gap: 0.75rem; }
+    .nav-title {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1rem; font-weight: 600; letter-spacing: 0.08em; color: var(--white);
+    }
+    .nav-title span { color: var(--accent); }
+
+    /* HERO */
+    .page-hero {
+      position: relative; z-index: 1;
+      padding: 120px 2rem 60px; text-align: center;
+      border-bottom: 1px solid var(--border);
+    }
+    .hero-label {
+      display: inline-block; font-size: 0.7rem; font-weight: 600;
+      letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent);
+      border: 1px solid var(--border); padding: 4px 14px;
+      border-radius: 20px; margin-bottom: 1.2rem;
+    }
+    .hero-title {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: clamp(2.2rem, 5vw, 3.8rem); font-weight: 700;
+      line-height: 1.1; color: var(--white); margin-bottom: 1rem; letter-spacing: 0.02em;
+    }
+    .hero-title span { color: var(--accent); }
+    .hero-sub {
+      font-size: 1rem; color: var(--muted);
+      max-width: 560px; margin: 0 auto 0.75rem; line-height: 1.7;
+    }
+    .hero-note {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      font-size: 0.78rem; color: rgba(245,158,11,0.8);
+      background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.25);
+      padding: 4px 14px; border-radius: 20px; margin-top: 0.5rem;
+    }
+
+    /* RUNWAY DIVIDER */
+    .runway {
+      position: relative; z-index: 1;
+      display: flex; align-items: center; gap: 1rem;
+      max-width: 1100px; margin: 0 auto; padding: 3rem 2rem 1.5rem;
+    }
+    .runway-line { flex: 1; height: 1px; background: var(--border); }
+    .runway-label {
+      font-family: 'Rajdhani', sans-serif; font-size: 0.75rem; font-weight: 700;
+      letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); white-space: nowrap;
+    }
+
+    /* HANGAR */
+    .hangar {
+      position: relative; z-index: 1;
+      max-width: 1100px; margin: 0 auto;
+      padding: 0 2rem 6rem; display: flex; flex-direction: column; gap: 3rem;
+    }
+
+    .aircraft-card {
+      border: 1px solid var(--border); border-radius: 20px;
+      background: var(--card); overflow: hidden; transition: border-color 0.3s;
+    }
+    .aircraft-card:hover { border-color: rgba(79,142,247,0.45); }
+
+    /* CAROUSEL */
+    .carousel-wrap {
+      position: relative; width: 100%; height: 320px; overflow: hidden;
+      border-bottom: 1px solid var(--border);
+      background: linear-gradient(160deg, var(--navy-mid) 0%, #060f20 100%);
+      transition: height 0.45s cubic-bezier(0.4,0,0.2,1);
+      cursor: pointer;
+    }
+    .carousel-wrap:hover { height: 520px; }
+
+    .expand-hint {
+      position: absolute; bottom: 0; left: 0; right: 0; z-index: 10;
+      display: flex; align-items: center; justify-content: center; gap: 0.4rem;
+      padding: 10px;
+      background: linear-gradient(to top, rgba(6,15,32,0.85), transparent);
+      font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: rgba(255,255,255,0.35);
+      transition: opacity 0.25s; pointer-events: none;
+    }
+    .carousel-wrap:hover .expand-hint { opacity: 0; }
+
+    .carousel-track {
+      display: flex; height: 100%;
+      transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
+    }
+    .carousel-slide {
+      flex-shrink: 0; width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+    }
+    .carousel-slide img {
+      width: 100%; height: 100%; object-fit: contain; display: block;
+    }
+
+    .slide-placeholder {
+      display: flex; flex-direction: column; align-items: center; gap: 0.75rem;
+      width: 100%; height: 100%; justify-content: center;
+    }
+    .ph-label {
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--accent); opacity: 0.4;
+    }
+    .ph-filename {
+      font-family: 'Rajdhani', sans-serif; font-size: 1rem; font-weight: 600;
+      letter-spacing: 0.12em; color: rgba(255,255,255,0.18);
+    }
+    .ph-icon { opacity: 0.15; }
+
+    .carousel-silhouette {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      pointer-events: none; opacity: 0.07;
+    }
+    .carousel-silhouette svg { width: 75%; max-width: 480px; }
+
+    .carousel-btn {
+      position: absolute; top: 50%; transform: translateY(-50%); z-index: 20;
+      width: 38px; height: 38px; border-radius: 50%;
+      background: rgba(10,22,40,0.7); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: background 0.2s, border-color 0.2s; color: var(--white);
+    }
+    .carousel-btn:hover { background: var(--accent); border-color: var(--accent); }
+    .carousel-btn svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; }
+    .carousel-btn.prev { left: 12px; }
+    .carousel-btn.next { right: 12px; }
+
+    .carousel-dots {
+      position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%);
+      display: flex; gap: 6px; z-index: 20;
+    }
+    .dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: rgba(255,255,255,0.3); cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .dot.active { background: var(--accent); transform: scale(1.35); }
+
+    .type-badge {
+      position: absolute; top: 1rem; left: 1rem; z-index: 15;
+      font-family: 'Rajdhani', sans-serif; font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase; padding: 4px 12px; border-radius: 4px;
+    }
+    .type-badge.piston { background: rgba(245,158,11,0.18); color: var(--gold); border: 1px solid rgba(245,158,11,0.4); }
+    .type-badge.jet { background: rgba(79,142,247,0.18); color: var(--accent2); border: 1px solid rgba(79,142,247,0.4); }
+
+    .slide-counter {
+      position: absolute; top: 1rem; right: 1rem; z-index: 15;
+      font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em;
+      background: rgba(10,22,40,0.65); color: rgba(255,255,255,0.55);
+      padding: 3px 10px; border-radius: 20px; border: 1px solid var(--border);
+    }
+
+    /* BODY */
+    .aircraft-body { padding: 1.8rem 2rem 2rem; }
+    .aircraft-meta {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      gap: 1rem; margin-bottom: 1rem; flex-wrap: wrap;
+    }
+    .aircraft-name {
+      font-family: 'Rajdhani', sans-serif; font-size: 1.6rem; font-weight: 700;
+      color: var(--white); letter-spacing: 0.04em; line-height: 1.1;
+    }
+    .aircraft-designation { font-size: 0.78rem; color: var(--muted); margin-top: 0.2rem; letter-spacing: 0.06em; }
+    .wip-tag {
+      flex-shrink: 0; display: inline-flex; align-items: center; gap: 5px;
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      background: rgba(245,158,11,0.1); color: var(--gold);
+      border: 1px solid rgba(245,158,11,0.3); padding: 5px 12px; border-radius: 6px;
+    }
+    .wip-dot {
+      width: 6px; height: 6px; border-radius: 50%; background: var(--gold);
+      animation: pulse 1.8s ease-in-out infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+    .aircraft-desc { font-size: 0.92rem; color: var(--muted); line-height: 1.75; margin-bottom: 1.5rem; max-width: 680px; }
+
+    .specs-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 0.75rem; margin-bottom: 1.5rem;
+    }
+    .spec-cell {
+      background: rgba(255,255,255,0.03); border: 1px solid var(--border);
+      border-radius: 10px; padding: 0.75rem 1rem;
+    }
+    .spec-label { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.3rem; }
+    .spec-value { font-family: 'Rajdhani', sans-serif; font-size: 1.05rem; font-weight: 700; color: var(--white); }
+    .spec-value.tbd { color: var(--muted); font-style: italic; font-size: 0.85rem; font-family: 'Inter', sans-serif; font-weight: 400; }
+
+    .feature-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .feature-tag {
+      font-size: 0.75rem; font-weight: 500;
+      background: rgba(79,142,247,0.08); color: var(--accent2);
+      border: 1px solid rgba(79,142,247,0.2); padding: 4px 12px; border-radius: 20px;
+    }
+
+    /* FOOTER */
+    .page-footer {
+      position: relative; z-index: 1; text-align: center; padding: 2rem;
+      border-top: 1px solid var(--border); font-size: 0.78rem; color: var(--muted);
+    }
+    .page-footer a { color: var(--accent); text-decoration: none; }
+    .page-footer a:hover { text-decoration: underline; }
+
+    @media (max-width: 600px) {
+      .aircraft-body { padding: 1.2rem 1.2rem 1.5rem; }
+      .carousel-wrap { height: 220px; }
+      .carousel-wrap:hover { height: 360px; }
+      .specs-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-back">
+    <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="width:16px;height:16px;"><path d="M13 4l-6 6 6 6"/></svg>
+    Back to Portfolio
+  </a>
+  <span class="nav-title">Aircraft <span>Designs</span></span>
+  <span style="width:120px;"></span>
+</nav>
+
+<div class="page-hero">
+  <span class="hero-label">Passion Project / Conceptual Design</span>
+  <h1 class="hero-title">My Aircraft <span>Designs</span></h1>
+  <p class="hero-sub">Conceptual aircraft designed in Flyout, a high-fidelity aircraft design simulator. Each design reflects hands-on exploration of aerodynamics, propulsion, and aircraft configuration.</p>
+  <div class="hero-note">
+    <svg viewBox="0 0 16 16" fill="currentColor" style="width:12px;height:12px;flex-shrink:0;"><path d="M8 1a7 7 0 100 14A7 7 0 008 1zm0 2a1 1 0 110 2 1 1 0 010-2zm1 9H7V7h2v5z"/></svg>
+    Both designs are works in progress — screenshots and specs will be added soon
+  </div>
+</div>
+
+<div class="runway">
+  <div class="runway-line"></div>
+  <span class="runway-label">Hangar — 2 Aircraft</span>
+  <div class="runway-line"></div>
+</div>
+
+<div class="hangar">
+
+  <!-- AIRCRAFT 1: PISTON -->
+  <div class="aircraft-card">
+    <div class="carousel-wrap" id="cwrap-piston">
+      <span class="type-badge piston">Piston Engine</span>
+      <span class="slide-counter" id="ctr-piston">1 / 4</span>
+
+      <div class="carousel-silhouette">
+        <svg viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg" fill="white">
+          <ellipse cx="300" cy="100" rx="220" ry="18"/>
+          <polygon points="520,100 560,85 560,115"/>
+          <rect x="80" y="92" width="30" height="16"/>
+          <polygon points="110,92 80,60 75,60 75,92"/>
+          <polygon points="110,108 80,140 75,140 75,108"/>
+          <polygon points="270,92 220,70 215,70 215,92"/>
+          <polygon points="270,108 220,130 215,130 215,108"/>
+          <line x1="80" y1="100" x2="56" y2="100" stroke="white" stroke-width="6" fill="none"/>
+          <line x1="56" y1="68" x2="56" y2="132" stroke="white" stroke-width="4" fill="none"/>
+        </svg>
+      </div>
+
+      <div class="carousel-track" id="ctrack-piston">
+        <div class="carousel-slide"><div class="slide-placeholder">
+          <svg class="ph-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:44px;height:44px;"><rect x="4" y="8" width="40" height="30" rx="3" stroke="white" stroke-width="2"/><circle cx="17" cy="19" r="4" stroke="white" stroke-width="2"/><path d="M4 30l10-8 8 6 7-5 11 8" stroke="white" stroke-width="2"/></svg>
+          <span class="ph-label">Upload your screenshot here</span>
+          <span class="ph-filename">piston_img1.png</span>
+        </div></div>
+        <div class="carousel-slide"><div class="slide-placeholder">
+          <svg class="ph-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:44px;height:44px;"><rect x="4" y="8" width="40" height="30" rx="3" stroke="white" stroke-width="2"/><circle cx="17" cy="19" r="4" stroke="white" stroke-width="2"/><path d="M4 30l10-8 8 6 7-5 11 8" stroke="white" stroke-width="2"/></svg>
+          <span class="ph-label">Upload your screenshot here</span>
+          <span class="ph-filename">piston_img2.png</span>
+        </div></div>
+        <div class="carousel-slide"><div class="slide-placeholder">
+          <svg class="ph-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:44px;height:44px;"><rect x="4" y="8" width="40" height="30" rx="3" stroke="white" stroke-width="2"/><circle cx="17" cy="19" r="4" stroke="white" stroke-width="2"/><path d="M4 30l10-8 8 6 7-5 11 8" stroke="white" stroke-width="2"/></svg>
+          <span class="ph-label">Upload your screenshot here</span>
+          <span class="ph-filename">piston_img3.png</span>
+        </div></div>
+        <div class="carousel-slide"><div class="slide-placeholder">
+          <svg class="ph-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:44px;height:44px;"><rect x="4" y="8" width="40" height="30" rx="3" stroke="white" stroke-width="2"/><circle cx="17" cy="19" r="4" stroke="white" stroke-width="2"/><path d="M4 30l10-8 8 6 7-5 11 8" stroke="white" stroke-width="2"/></svg>
+          <span class="ph-label">Upload your screenshot here</span>
+          <span class="ph-filename">piston_img4.png</span>
+        </div></div>
+      </div>
+
+      <button class="carousel-btn prev" onclick="slide('piston',-1)"><svg viewBox="0 0 20 20"><path d="M13 4l-6 6 6 6"/></svg></button>
+      <button class="carousel-btn next" onclick="slide('piston',1)"><svg viewBox="0 0 20 20"><path d="M7 4l6 6-6 6"/></svg></button>
+
+      <div class="carousel-dots" id="cdots-piston">
+        <div class="dot active" onclick="goTo('piston',0)"></div>
+        <div class="dot" onclick="goTo('piston',1)"></div>
+        <div class="dot" onclick="goTo('piston',2)"></div>
+        <div class="dot" onclick="goTo('piston',3)"></div>
+      </div>
+
+      <div class="expand-hint">
+        <svg viewBox="0 0 16 16" fill="currentColor" style="width:11px;height:11px;"><path d="M2 2h5v2H4v3H2V2zm9 0h3v5h-2V4h-3V2zM2 9h2v3h3v2H2V9zm9 3h3V9h2v5h-5v-2z"/></svg>
+        Hover to expand
+      </div>
+    </div>
+
+    <div class="aircraft-body">
+      <div class="aircraft-meta">
+        <div>
+          <h2 class="aircraft-name">TBD — Piston Aircraft</h2>
+          <p class="aircraft-designation">Designation / name to be decided</p>
+        </div>
+        <span class="wip-tag"><span class="wip-dot"></span>In Design</span>
+      </div>
+      <p class="aircraft-desc">A conceptual piston-engine aircraft designed in Flyout. Details on configuration, mission profile, and performance figures will be filled in once the design is further along. Check back soon.</p>
+      <div class="specs-grid">
+        <div class="spec-cell"><div class="spec-label">Engine</div><div class="spec-value tbd">Piston / Prop</div></div>
+        <div class="spec-cell"><div class="spec-label">Configuration</div><div class="spec-value tbd">TBD</div></div>
+        <div class="spec-cell"><div class="spec-label">Max Speed</div><div class="spec-value tbd">TBD</div></div>
+        <div class="spec-cell"><div class="spec-label">Range</div><div class="spec-value tbd">TBD</div></div>
+        <div class="spec-cell"><div class="spec-label">Role</div><div class="spec-value tbd">TBD</div></div>
+        <div class="spec-cell"><div class="spec-label">Wingspan</div><div class="spec-value tbd">TBD</div></div>
+      </div>
+      <div class="feature-tags">
+        <span class="feature-tag">Piston Engine</span>
+        <span class="feature-tag">Propeller-Driven</span>
+        <span class="feature-tag">Flyout</span>
+        <span class="feature-tag">Conceptual</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- AIRCRAFT 2: JET -->
+  <div class="aircraft-card">
+    <div class="carousel-wrap" id="cwrap-jet">
+      <span class="type-badge jet">Jet Engine</span>
+      <span class="slide-counter" id="ctr-jet">1 / 4</span>
+
+      <div class="carousel-silhouette">
+        <svg viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg" fill="white">
+          <ellipse cx="300" cy="100" rx="230" ry="14"/>
+          <polygon points="530,100 570,100 540,93 540,107"/>
+          <polygon points="70,100 40,88 40,112"/>
+          <polygon points="230,100 180,62 175,62 175,100"/>
+          <polygon points="230,100 180,138 175,138 175,100"/>
+          <polygon points="320,100 290,78 286,78 286,100"/>
+          <polygon points="320,100 290,122 286,122 286,100"/>
+          <ellipse cx="200" cy="118" rx="22" ry="9"/>
+          <ellipse cx="400" cy="118" rx="22" ry="9"/>
+        </svg>
+      </div>
+
+      <div class="carousel-track" id="ctrack-jet">
+        <div class="carousel-slide"><div class="slide-placeholder">
+          <svg class="ph-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:44px;height:44px;"><rect x="4" y="8" width="40" height="30" rx="3" stroke="white" stroke-width="2"/><circle cx="17" cy="19" r="4" stroke="white" stroke-width="2"/><path d="M4 30l10-8 8 6 7-5 11 8" stroke="white" stroke-width="2"/></svg>
+          <span class="ph-label">Upload your screenshot here</span>
+          <span class="ph-filename">jet_img1.png</span>
+        </div></div>
+        <div class="carousel-slide"><div class="slide-placeholder">
+          <svg class="ph-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:44px;height:44px;"><rect x="4" y="8" width="40" height="30" rx="3" stroke="white" stroke-width="2"/><circle cx="17" cy="19" r="4" stroke="white" stroke-width="2"/><path d="M4 30l10-8 8 6 7-5 11 8" stroke="white" stroke-width="2"/></svg>
+          <span class="ph-label">Upload your screenshot here</span>
+          <span class="ph-filename">jet_img2.png</span>
+        </div></div>
+        <div class="carousel-slide"><div class="slide-placeholder">
+          <svg class="ph-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:44px;height:44px;"><rect x="4" y="8" width="40" height="30" rx="3" stroke="white" stroke-width="2"/><circle cx="17" cy="19" r="4" stroke="white" stroke-width="2"/><path d="M4 30l10-8 8 6 7-5 11 8" stroke="white" stroke-width="2"/></svg>
+          <span class="ph-label">Upload your screenshot here</span>
+          <span class="ph-filename">jet_img3.png</span>
+        </div></div>
+        <div class="carousel-slide"><div class="slide-placeholder">
+          <svg class="ph-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:44px;height:44px;"><rect x="4" y="8" width="40" height="30" rx="3" stroke="white" stroke-width="2"/><circle cx="17" cy="19" r="4" stroke="white" stroke-width="2"/><path d="M4 30l10-8 8 6 7-5 11 8" stroke="white" stroke-width="2"/></svg>
+          <span class="ph-label">Upload your screenshot here</span>
+          <span class="ph-filename">jet_img4.png</span>
+        </div></div>
+      </div>
+
+      <button class="carousel-btn prev" onclick="slide('jet',-1)"><svg viewBox="0 0 20 20"><path d="M13 4l-6 6 6 6"/></svg></button>
+      <button class="carousel-btn next" onclick="slide('jet',1)"><svg viewBox="0 0 20 20"><path d="M7 4l6 6-6 6"/></svg></button>
+
+      <div class="carousel-dots" id="cdots-jet">
+        <div class="dot active" onclick="goTo('jet',0)"></div>
+        <div class="dot" onclick="goTo('jet',1)"></div>
+        <div class="dot" onclick="goTo('jet',2)"></div>
+        <div class="dot" onclick="goTo('jet',3)"></div>
+      </div>
+
+      <div class="expand-hint">
+        <svg viewBox="0 0 16 16" fill="currentColor" style="width:11px;height:11px;"><path d="M2 2h5v2H4v3H2V2zm9 0h3v5h-2V4h-3V2zM2 9h2v3h3v2H2V9zm9 3h3V9h2v5h-5v-2z"/></svg>
+        Hover to expand
+      </div>
+    </div>
+
+    <div class="aircraft-body">
+      <div class="aircraft-meta">
+        <div>
+          <h2 class="aircraft-name">TBD — Jet Aircraft</h2>
+          <p class="aircraft-designation">Designation / name to be decided</p>
+        </div>
+        <span class="wip-tag"><span class="wip-dot"></span>In Design</span>
+      </div>
+      <p class="aircraft-desc">A conceptual jet-powered aircraft designed in Flyout. Engine type, wing layout, and performance specifications will be documented once the design matures. More details to come.</p>
+      <div class="specs-grid">
+        <div class="spec-cell"><div class="spec-label">Engine</div><div class="spec-value tbd">Jet / Turbofan</div></div>
+        <div class="spec-cell"><div class="spec-label">Configuration</div><div class="spec-value tbd">TBD</div></div>
+        <div class="spec-cell"><div class="spec-label">Max Speed</div><div class="spec-value tbd">TBD</div></div>
+        <div class="spec-cell"><div class="spec-label">Range</div><div class="spec-value tbd">TBD</div></div>
+        <div class="spec-cell"><div class="spec-label">Role</div><div class="spec-value tbd">TBD</div></div>
+        <div class="spec-cell"><div class="spec-label">Wingspan</div><div class="spec-value tbd">TBD</div></div>
+      </div>
+      <div class="feature-tags">
+        <span class="feature-tag">Jet Engine</span>
+        <span class="feature-tag">High Speed</span>
+        <span class="feature-tag">Flyout</span>
+        <span class="feature-tag">Conceptual</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="page-footer">
+  <a href="index.html">← Return to Portfolio</a> &nbsp;·&nbsp; Satrio Arya Daniswara &nbsp;·&nbsp; Conceptual designs made in Flyout
+</div>
+
+<script>
+  const state = { piston: 0, jet: 0 };
+  const TOTAL = 4;
+
+  function updateCarousel(id) {
+    document.getElementById('ctrack-' + id).style.transform = 'translateX(-' + (state[id] * 100) + '%)';
+    document.querySelectorAll('#cdots-' + id + ' .dot').forEach((d, i) => d.classList.toggle('active', i === state[id]));
+    document.getElementById('ctr-' + id).textContent = (state[id] + 1) + ' / ' + TOTAL;
+  }
+
+  function slide(id, dir) {
+    state[id] = (state[id] + dir + TOTAL) % TOTAL;
+    updateCarousel(id);
+  }
+
+  function goTo(id, idx) {
+    state[id] = idx;
+    updateCarousel(id);
+  }
+
+  // swipe support
+  ['piston', 'jet'].forEach(id => {
+    const el = document.getElementById('cwrap-' + id);
+    let sx = 0;
+    el.addEventListener('touchstart', e => { sx = e.touches[0].clientX; }, { passive: true });
+    el.addEventListener('touchend', e => {
+      const dx = e.changedTouches[0].clientX - sx;
+      if (Math.abs(dx) > 40) slide(id, dx < 0 ? 1 : -1);
+    });
+  });
+</script>
+
+</body>
+</html>
