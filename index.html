@@ -1,147 +1,966 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Portfolio & Gallery</title>
-    <style>
-        /* CSS Styling */
-        body { 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            margin: 0; 
-            padding: 0; 
-            background-color: #f4f4f9; 
-            color: #333; 
-        }
-        header { 
-            background-color: #1a1a1a; 
-            color: #fff; 
-            padding: 3rem 0; 
-            text-align: center; 
-        }
-        header h1 { 
-            margin: 0; 
-            font-size: 2.8rem; 
-            letter-spacing: 1px;
-        }
-        header p { 
-            margin: 10px 0 0; 
-            font-size: 1.2rem; 
-            color: #cccccc; 
-        }
-        .container { 
-            max-width: 1200px; 
-            margin: 0 auto; 
-            padding: 40px 20px; 
-        }
-        .section-title { 
-            text-align: center; 
-            margin-bottom: 40px; 
-            font-size: 2rem; 
-            color: #1a1a1a; 
-            border-bottom: 2px solid #ddd; 
-            padding-bottom: 10px; 
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Satrio Arya Daniswara's Portfolio</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-        /* Gallery Grid Layout */
-        .gallery { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
-            gap: 30px; 
-        }
-        .gallery-item { 
-            background: #fff; 
-            border-radius: 12px; 
-            overflow: hidden; 
-            box-shadow: 0 4px 10px rgba(0,0,0,0.08); 
-            transition: transform 0.3s ease, box-shadow 0.3s ease; 
-        }
-        .gallery-item:hover { 
-            transform: translateY(-8px); 
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-        }
-        .gallery-item img { 
-            width: 100%; 
-            height: 250px; 
-            object-fit: cover; 
-            display: block; 
-        }
-        .gallery-info { 
-            padding: 20px; 
-        }
-        .gallery-info h3 { 
-            margin: 0 0 10px; 
-            font-size: 1.3rem; 
-            color: #222;
-        }
-        .gallery-info p { 
-            margin: 0; 
-            color: #666; 
-            font-size: 1rem; 
-            line-height: 1.5;
-        }
+    :root {
+      --navy: #0a1628;
+      --navy-mid: #122040;
+      --blue: #1a3a6b;
+      --blue-light: #1e4fa3;
+      --accent: #4f8ef7;
+      --accent-soft: #dbe9ff;
+      --white: #ffffff;
+      --off-white: #f5f7fc;
+      --text-main: #0e1a2e;
+      --text-muted: #4a5568;
+      --text-light: #718096;
+      --border: #d1ddf0;
+      --card-bg: #ffffff;
+      --section-alt: #f0f5ff;
+      --tag-bg: #e8f0fe;
+      --tag-text: #1a3a6b;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+    }
 
-        footer { 
-            text-align: center; 
-            padding: 30px; 
-            background-color: #1a1a1a; 
-            color: #fff; 
-            margin-top: 40px; 
-        }
-        footer a {
-            color: #4da6ff;
-            text-decoration: none;
-        }
-    </style>
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      color: var(--text-main);
+      background: var(--white);
+      line-height: 1.7;
+      font-size: 16px;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(10, 22, 40, 0.97);
+      backdrop-filter: blur(10px);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2rem; height: 60px;
+      border-bottom: 1px solid rgba(79, 142, 247, 0.2);
+    }
+    .nav-brand {
+      color: var(--white); font-size: 1rem; font-weight: 600;
+      letter-spacing: 0.03em;
+    }
+    .nav-brand span { color: var(--accent); }
+    .nav-links { display: flex; gap: 1.8rem; list-style: none; }
+    .nav-links a {
+      color: rgba(255,255,255,0.75); text-decoration: none;
+      font-size: 0.875rem; letter-spacing: 0.04em;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+    .nav-toggle span { display: block; width: 22px; height: 2px; background: var(--white); border-radius: 2px; }
+
+    /* ─── HERO ─── */
+    .hero {
+      min-height: 100vh; background: var(--navy);
+      display: flex; align-items: center; justify-content: center;
+      padding: 100px 2rem 60px;
+    }
+    .hero-inner {
+      max-width: 900px; width: 100%;
+      display: flex; flex-direction: column; gap: 2rem;
+    }
+    .hero-top {
+      display: flex; align-items: center; gap: 2rem;
+    }
+    .hero-avatar {
+      flex-shrink: 0;
+      width: 110px; height: 110px; border-radius: 50%;
+      background: var(--blue);
+      border: 3px solid var(--accent);
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    .hero-avatar svg { width: 60px; height: 60px; opacity: 0.5; }
+    .hero-title-block { flex: 1; }
+    .hero-name {
+      font-size: clamp(1.6rem, 3.5vw, 2.4rem); font-weight: 700;
+      color: var(--white); line-height: 1.2; white-space: nowrap;
+      margin-bottom: 0.3rem;
+    }
+    .hero-subtitle {
+      font-size: 0.9rem; font-weight: 500;
+      color: var(--accent); letter-spacing: 0.05em;
+    }
+    .hero-bio {
+      font-size: 0.95rem; color: rgba(255,255,255,0.72);
+      line-height: 1.8; margin-bottom: 2rem; text-align: justify;
+    }
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 0.7rem 1.8rem; border-radius: var(--radius-md);
+      font-size: 0.9rem; font-weight: 600; cursor: pointer;
+      text-decoration: none; border: none; transition: all 0.22s;
+      letter-spacing: 0.03em;
+    }
+    .btn-primary {
+      background: var(--accent); color: var(--white);
+      box-shadow: 0 4px 20px rgba(79, 142, 247, 0.35);
+    }
+    .btn-primary:hover { background: #3a7af0; transform: translateY(-2px); box-shadow: 0 6px 24px rgba(79, 142, 247, 0.5); }
+    .btn-outline {
+      background: transparent; color: var(--white);
+      border: 1.5px solid rgba(255,255,255,0.4);
+    }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+
+    /* ─── SECTIONS ─── */
+    section { padding: 80px 2rem; }
+    .section-inner { max-width: 1050px; margin: 0 auto; }
+    .section-title {
+      font-size: clamp(1.6rem, 3vw, 2rem); font-weight: 700;
+      color: var(--navy); margin-bottom: 0.5rem;
+    }
+    .section-title span { color: var(--accent); }
+    .section-line {
+      width: 50px; height: 3px; background: var(--accent);
+      border-radius: 2px; margin-bottom: 3rem;
+    }
+    .subsection-title {
+      font-size: 1.1rem; font-weight: 700; color: var(--blue);
+      margin-bottom: 1.4rem; padding-bottom: 0.5rem;
+      border-bottom: 1.5px solid var(--border);
+      letter-spacing: 0.04em; text-transform: uppercase; font-size: 0.82rem;
+    }
+
+    /* ─── EXPERIENCE ─── */
+    #experience { background: var(--off-white); }
+    .exp-block { margin-bottom: 3.5rem; }
+    .exp-block:last-child { margin-bottom: 0; }
+    .cards-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.4rem;
+    }
+    .cards-grid .card {
+      flex: 1 1 280px;
+      max-width: 340px;
+    }
+    .card {
+      background: var(--card-bg); border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      transition: transform 0.22s, box-shadow 0.22s;
+    }
+    .card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(26,59,107,0.12); }
+    .card-img {
+      width: 100%; height: 140px; object-fit: cover;
+      background: linear-gradient(135deg, var(--blue) 0%, var(--navy) 100%);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .card-img svg { width: 48px; height: 48px; opacity: 0.35; }
+    .card-body { padding: 1.1rem 1.2rem 1.3rem; }
+    .card-badge {
+      display: inline-block; font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      background: var(--tag-bg); color: var(--tag-text);
+      padding: 3px 9px; border-radius: 20px; margin-bottom: 0.5rem;
+    }
+    .card-title { font-size: 0.98rem; font-weight: 700; color: var(--navy); margin-bottom: 0.45rem; }
+    .card-role { font-size: 0.82rem; font-weight: 600; color: var(--accent); margin-bottom: 0.5rem; }
+    .card-desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.65; }
+    .card-award {
+      display: inline-flex; align-items: center; gap: 5px;
+      margin-top: 0.65rem; font-size: 0.78rem; font-weight: 700;
+      color: #b45309; background: #fffbeb; padding: 3px 9px;
+      border-radius: 20px; border: 1px solid #fcd34d;
+    }
+    .card-award::before { content: "★"; font-size: 0.75rem; }
+
+    /* ─── SKILLS ─── */
+    #skills { background: var(--white); }
+    .skills-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.6rem;
+    }
+    .skill-category {
+      flex: 1 1 280px;
+      max-width: 340px;
+      background: var(--card-bg); border-radius: var(--radius-lg);
+      border: 1px solid var(--border); padding: 1.3rem 1.4rem;
+      transition: transform 0.22s, box-shadow 0.22s;
+    }
+    .skill-category:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(26,59,107,0.1); }
+    .skill-cat-icon {
+      width: 36px; height: 36px; border-radius: var(--radius-sm);
+      background: var(--accent-soft); display: flex; align-items: center;
+      justify-content: center; margin-bottom: 0.75rem;
+    }
+    .skill-cat-icon svg { width: 18px; height: 18px; fill: var(--accent); }
+    .skill-cat-title {
+      font-size: 0.82rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--blue); margin-bottom: 0.9rem;
+    }
+    .tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .tag {
+      font-size: 0.8rem; font-weight: 500;
+      background: var(--tag-bg); color: var(--tag-text);
+      padding: 4px 12px; border-radius: 20px;
+      border: 1px solid var(--border);
+      transition: all 0.18s; cursor: default;
+    }
+    .tag:hover { background: var(--accent); color: var(--white); border-color: var(--accent); }
+    .tag.lang { background: #f0fff4; color: #276749; border-color: #c6f6d5; }
+    .tag.lang:hover { background: #276749; color: var(--white); }
+    .tag.hands { background: #fff5f5; color: #9b2c2c; border-color: #fed7d7; }
+    .tag.hands:hover { background: #9b2c2c; color: var(--white); }
+    .tag.vision { background: #faf5ff; color: #553c9a; border-color: #e9d8fd; }
+    .tag.vision:hover { background: #553c9a; color: var(--white); }
+
+    /* ─── AWARDS ─── */
+    #awards { background: var(--navy); }
+    #awards .section-title { color: var(--white); }
+    #awards .section-title span { color: var(--accent); }
+    .awards-row {
+      display: flex; flex-wrap: wrap; justify-content: center; gap: 1.4rem;
+    }
+    .award-card {
+      flex: 1 1 260px; max-width: 320px;
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(79,142,247,0.3);
+      background: rgba(255,255,255,0.04);
+      padding: 1.4rem 1.5rem;
+      display: flex; gap: 1rem; align-items: flex-start;
+      transition: transform 0.22s, border-color 0.22s;
+    }
+    .award-card:hover { transform: translateY(-3px); border-color: var(--accent); }
+    .award-medal {
+      flex-shrink: 0; width: 44px; height: 44px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem;
+    }
+    .award-medal.gold { background: rgba(251,191,36,0.15); }
+    .award-medal.silver { background: rgba(148,163,184,0.15); }
+    .award-info { flex: 1; }
+    .award-title { font-size: 0.95rem; font-weight: 700; color: var(--white); margin-bottom: 0.2rem; }
+    .award-date { font-size: 0.75rem; color: var(--accent); font-weight: 600; margin-bottom: 0.4rem; letter-spacing: 0.05em; }
+    .award-desc { font-size: 0.82rem; color: rgba(255,255,255,0.55); line-height: 1.6; }
+
+    /* ─── PROJECTS ─── */
+    #projects { background: var(--off-white); }
+    .project-card {
+      background: var(--card-bg); border-radius: var(--radius-lg);
+      border: 1px solid var(--border); padding: 1.3rem 1.4rem;
+      flex: 1 1 280px; max-width: 340px;
+      transition: transform 0.22s, box-shadow 0.22s;
+    }
+    .project-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(26,59,107,0.12); }
+    .project-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 0.5rem; margin-bottom: 0.4rem; }
+    .project-title { font-size: 0.95rem; font-weight: 700; color: var(--navy); line-height: 1.3; }
+    .project-date { font-size: 0.72rem; font-weight: 600; color: var(--accent); white-space: nowrap; padding-top: 2px; }
+    .project-role { font-size: 0.78rem; font-weight: 600; color: var(--text-light); margin-bottom: 0.55rem; }
+    .project-desc { font-size: 0.84rem; color: var(--text-muted); line-height: 1.65; }
+    .project-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.75rem; }
+    .project-tag {
+      font-size: 0.72rem; font-weight: 600; padding: 2px 9px;
+      border-radius: 20px; background: var(--tag-bg); color: var(--tag-text);
+      border: 1px solid var(--border);
+    }
+
+    /* ─── INTERESTS ─── */
+    #interests { background: var(--white); }
+    .interests-wrap { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem; }
+    .interest-chip {
+      display: flex; align-items: center; gap: 0.5rem;
+      padding: 0.55rem 1.1rem; border-radius: 40px;
+      border: 1.5px solid var(--border); background: var(--white);
+      font-size: 0.85rem; font-weight: 500; color: var(--text-main);
+      transition: all 0.2s; cursor: default;
+    }
+    .interest-chip:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+    .interest-chip svg { width: 15px; height: 15px; fill: var(--accent); flex-shrink: 0; }
+    footer {
+      background: var(--navy); color: rgba(255,255,255,0.8);
+      padding: 60px 2rem 36px;
+    }
+    .footer-inner {
+      max-width: 1050px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;
+      padding-bottom: 2.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+    }
+    .footer-brand .nav-brand { font-size: 1.1rem; margin-bottom: 0.5rem; display: block; }
+    .footer-brand p { font-size: 0.88rem; color: rgba(255,255,255,0.5); max-width: 300px; }
+    .footer-contacts h4 {
+      font-size: 0.78rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 1.1rem;
+    }
+    .contact-item {
+      display: flex; align-items: flex-start; gap: 0.75rem;
+      margin-bottom: 0.9rem; font-size: 0.88rem;
+    }
+    .contact-icon {
+      width: 30px; height: 30px; border-radius: 6px;
+      background: rgba(79, 142, 247, 0.15); flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .contact-icon svg { width: 14px; height: 14px; fill: var(--accent); }
+    .contact-item a { color: rgba(255,255,255,0.75); text-decoration: none; transition: color 0.18s; }
+    .contact-item a:hover { color: var(--accent); }
+    .footer-copy {
+      max-width: 1050px; margin: 0 auto;
+      padding-top: 1.8rem;
+      font-size: 0.8rem; color: rgba(255,255,255,0.35);
+      text-align: center;
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 700px) {
+      .nav-links { display: none; flex-direction: column; position: absolute; top: 60px; left: 0; right: 0; background: var(--navy); padding: 1rem 2rem 1.5rem; gap: 1rem; border-bottom: 1px solid rgba(79,142,247,0.2); }
+      .nav-links.open { display: flex; }
+      .nav-toggle { display: flex; }
+      .hero-top { flex-wrap: wrap; }
+      .hero-name { white-space: normal; }
+      .footer-inner { grid-template-columns: 1fr; gap: 2rem; }
+      section { padding: 60px 1.2rem; }
+    }
+    /* ─── HERO SHORTCUTS ─── */
+    .hero-btns-label {
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.14em;
+      text-transform: uppercase; color: rgba(255,255,255,0.35);
+      margin-bottom: 0.5rem; margin-top: 0.5rem;
+    }
+    .hero-shortcuts {
+      display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1.2rem;
+    }
+    .shortcut {
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      font-size: 0.78rem; font-weight: 500;
+      color: rgba(255,255,255,0.6);
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.15);
+      padding: 0.35rem 0.85rem; border-radius: 20px;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .shortcut:hover {
+      color: var(--accent);
+      background: rgba(79,142,247,0.12);
+      border-color: rgba(79,142,247,0.4);
+    }
+
+    /* ─── LANGUAGE ACCORDION ─── */
+    .lang-list { display: flex; flex-direction: column; gap: 0.5rem; }
+    .lang-item {
+      border: 1px solid var(--border); border-radius: var(--radius-md);
+      overflow: hidden; cursor: pointer;
+      transition: border-color 0.18s;
+    }
+    .lang-item:hover { border-color: var(--accent); }
+    .lang-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.5rem 0.7rem;
+    }
+    .lang-header .tag { cursor: pointer; margin: 0; }
+    .lang-toggle-icon {
+      font-size: 1rem; color: var(--text-light);
+      transition: transform 0.22s; line-height: 1; user-select: none;
+    }
+    .lang-item.open .lang-toggle-icon { transform: rotate(45deg); color: var(--accent); }
+    .lang-detail {
+      font-size: 0.8rem; color: var(--text-muted); line-height: 1.6;
+      max-height: 0; overflow: hidden; padding: 0 0.75rem;
+      transition: max-height 0.28s ease, padding 0.22s ease;
+    }
+    .lang-item.open .lang-detail { max-height: 120px; padding: 0 0.75rem 0.6rem; }
+  </style>
 </head>
 <body>
 
-<header>
-    <h1>Alex's Creative Portfolio</h1>
-    <p>Showcasing my competition entries, designs, and projects</p>
-</header>
+<!-- NAV -->
+<nav>
+  <span class="nav-brand">Satrio Arya Daniswara's <span>Portfolio</span></span>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#hero">Home</a></li>
+    <li><a href="#awards">Awards</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#interests">Interests</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
 
-<div class="container">
-    <h2 class="section-title">Projects & Competitions Gallery</h2>
-
-    <div class="gallery">
-        <div class="gallery-item">
-            <img src="https://via.placeholder.com/600x400?text=Project+1+Image" alt="Competition 1">
-            <div class="gallery-info">
-                <h3>First Place - Design Hackathon</h3>
-                <p>A brief description of your project. Explain what the competition was and how you contributed to the winning design.</p>
-            </div>
-        </div>
-
-        <div class="gallery-item">
-            <img src="https://via.placeholder.com/600x400?text=Project+2+Image" alt="Project 2">
-            <div class="gallery-info">
-                <h3>Science Fair Innovation</h3>
-                <p>My interactive model that won the district innovation award. Built using recycled materials and basic electronics.</p>
-            </div>
-        </div>
-
-        <div class="gallery-item">
-            <img src="https://via.placeholder.com/600x400?text=Project+3+Image" alt="Photography Contest">
-            <div class="gallery-info">
-                <h3>National Photography Contest</h3>
-                <p>Selected as a top 10 finalist out of 5,000 entries. This piece focuses on urban architecture and light.</p>
-            </div>
-        </div>
-        
-        <div class="gallery-item">
-            <img src="https://via.placeholder.com/600x400?text=Project+4+Image" alt="App Development">
-            <div class="gallery-info">
-                <h3>Community App Prototype</h3>
-                <p>UI/UX design and wireframes for a local community initiative aimed at connecting volunteers with events.</p>
-            </div>
-        </div>
+<!-- HERO -->
+<section id="hero" class="hero">
+  <div class="hero-inner">
+    <div class="hero-top">
+      <div class="hero-avatar">
+        <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="40" cy="30" r="18" fill="rgba(255,255,255,0.5)"/>
+          <path d="M6 74c0-18.8 15.2-34 34-34s34 15.2 34 34" fill="rgba(255,255,255,0.5)"/>
+        </svg>
+      </div>
+      <div class="hero-title-block">
+        <h1 class="hero-name">Satrio Arya Daniswara</h1>
+        <p class="hero-subtitle">Aerospace Engineering Student</p>
+      </div>
     </div>
-</div>
+    <div>
+      <p class="hero-bio">Hello, I'm Satrio Arya Daniswara, a third-year Aerospace Engineering undergraduate at Universiti Putra Malaysia. I specialize in bridging the gap between software and hardware, offering a strong multidisciplinary skill set that spans avionics systems, embedded programming in C++ and Python, and structural design using CATIA. I am highly adaptable and proactive, with a passion for complex system integration and practical problem-solving. Rather than just focusing on theory, I have actively honed my skills through hands-on experience in rigorous national and international rocketry and CubeSat competitions. I am always eager to take on new challenges and apply my dual expertise in avionics and mechanical design to create innovative aerospace solutions.</p>
+      <div style="margin-bottom:1.4rem;display:flex;gap:1rem;flex-wrap:wrap;">
+        <a href="Satrio_CV.pdf" download class="btn btn-primary" style="display:inline-flex;align-items:center;gap:0.5rem;">
+          <svg viewBox="0 0 20 20" fill="currentColor" style="width:16px;height:16px;"><path d="M10 2a1 1 0 011 1v8.586l2.293-2.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 111.414-1.414L9 11.586V3a1 1 0 011-1z"/><path d="M3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"/></svg>
+          Download My CV
+        </a>
+        <a href="Satrio_Resume.pdf" download class="btn btn-outline" style="display:inline-flex;align-items:center;gap:0.5rem;">
+          <svg viewBox="0 0 20 20" fill="currentColor" style="width:16px;height:16px;"><path d="M10 2a1 1 0 011 1v8.586l2.293-2.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 111.414-1.414L9 11.586V3a1 1 0 011-1z"/><path d="M3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"/></svg>
+          Download My Resume
+        </a>
+      </div>
+      <div class="hero-btns-label">Quick Navigation</div>
+      <div class="hero-shortcuts">
+        <a href="#awards" class="shortcut">🏅 Awards</a>
+        <a href="#experience" class="shortcut">🚀 Experience</a>
+        <a href="#projects" class="shortcut">🔧 Projects</a>
+        <a href="#skills" class="shortcut">💡 Skills</a>
+        <a href="#interests" class="shortcut">✦ Interests</a>
+        <a href="#contact" class="shortcut">✉ Contact</a>
+      </div>
+    </div>
+  </div>
+</section>
 
-<footer>
-    <p>&copy; 2026 Your Name. Let's connect at: <a href="mailto:youremail@example.com">youremail@example.com</a></p>
+<!-- AWARDS -->
+<section id="awards">
+  <div class="section-inner">
+    <h2 class="section-title">Academic <span>Awards</span></h2>
+    <div class="section-line"></div>
+    <div class="awards-row">
+
+      <div class="award-card">
+        <div class="award-medal gold">🏅</div>
+        <div class="award-info">
+          <p class="award-title">Vice Chancellor's List</p>
+          <p class="award-date">Mar 2026</p>
+          <p class="award-desc">Awarded for achieving a perfect 4.0 GPA in a semester - the highest academic honour at Universiti Putra Malaysia.</p>
+        </div>
+      </div>
+
+      <div class="award-card">
+        <div class="award-medal silver">🎖️</div>
+        <div class="award-info">
+          <p class="award-title">Dean's List</p>
+          <p class="award-date">Mar 2023 – Oct 2025</p>
+          <p class="award-desc">Consistent Dean's List honouree across multiple semesters for maintaining a GPA of at least 3.75 throughout the academic year.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-inner">
+    <h2 class="section-title">My <span>Experience</span></h2>
+    <div class="section-line"></div>
+
+    <!-- Competitions -->
+    <div class="exp-block">
+      <p class="subsection-title">Competitions</p>
+      <div class="cards-grid">
+
+        <div class="card">
+          <div class="card-img">
+            <svg viewBox="0 0 48 48" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M24 4L4 14v6c0 12.4 8.5 24 20 27 11.5-3 20-14.6 20-27v-6L24 4z"/></svg>
+          </div>
+          <div class="card-body">
+            <span class="card-badge">International</span>
+            <span class="card-badge" style="background:#fef3c7;color:#92400e;border:1px solid #fcd34d;margin-left:4px;">In Progress</span>
+            <h3 class="card-title">Turkiye Teknofest Rocket Competition 2026</h3>
+            <p class="card-role">Avionics Team</p>
+            <p class="card-desc">Competing in the A4 category (3 km altitude). Developing FCC software including apogee detection logic and filtering algorithm in MicroPython, and designing full avionics architecture.</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-img">
+            <svg viewBox="0 0 48 48" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M6 28l8-16h20l8 16H6z"/><path d="M8 28l2 8h28l2-8H8z" fill="rgba(255,255,255,0.4)"/><path d="M14 20h20M14 24h20" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" fill="none"/></svg>
+          </div>
+          <div class="card-body">
+            <span class="card-badge">International</span>
+            <span class="card-badge" style="background:#fef3c7;color:#92400e;border:1px solid #fcd34d;margin-left:4px;">In Progress</span>
+            <h3 class="card-title">Airbus Fly Your Ideas 2026</h3>
+            <p class="card-role">Innovation &amp; R&amp;D Team Member</p>
+            <p class="card-desc">Proposing an AI-assisted taxi navigation system in a global competition. Conceptualising computer vision for taxiway tracking, AI speech recognition for ATC instructions, and IMU dead reckoning for low-visibility positioning.</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-img">
+            <svg viewBox="0 0 48 48" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M24 4L4 14v6c0 12.4 8.5 24 20 27 11.5-3 20-14.6 20-27v-6L24 4z"/></svg>
+          </div>
+          <div class="card-body">
+            <span class="card-badge">International</span>
+            <h3 class="card-title">Turkiye Teknofest Rocket Competition 2025</h3>
+            <p class="card-role">Avionics Team</p>
+            <p class="card-desc">Developed Flight Computer Controller (FCC) software and designed the full avionics architecture for the A4 category rocket entry.</p>
+            <span class="card-award">Silver Plaque - A4 Category</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-img">
+            <svg viewBox="0 0 48 48" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M24 2L8 10v14c0 11 7 20.7 16 23.9C33 44.7 40 35 40 24V10L24 2z"/><path d="M20 28l-6-6 2-2 4 4 8-8 2 2-10 10z" fill="rgba(0,0,0,0.3)"/></svg>
+          </div>
+          <div class="card-body">
+            <span class="card-badge">National</span>
+            <h3 class="card-title">Malaysian Rocket Competition 2025</h3>
+            <p class="card-role">Avionics Team, HOD Rocket Avionics &amp; Payload, and CanSat Team</p>
+            <p class="card-desc">Developed the FCC and mentored the team on sensor integration. Served as Head of Department for both the Rocket Avionics/Payload subsystem and the separate CanSat team.</p>
+            <span class="card-award">3rd Place</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-img">
+            <svg viewBox="0 0 48 48" fill="white" xmlns="http://www.w3.org/2000/svg"><rect x="12" y="18" width="24" height="16" rx="2" fill="white"/><path d="M18 18v-4a6 6 0 0112 0v4" fill="none" stroke="white" stroke-width="2.5"/><rect x="20" y="26" width="8" height="4" rx="1" fill="rgba(0,0,0,0.25)"/></svg>
+          </div>
+          <div class="card-body">
+            <span class="card-badge">Competition</span>
+            <h3 class="card-title">Aeros CubeSat Competition</h3>
+            <p class="card-role">Programming, Embedded System & Design Team</p>
+            <p class="card-desc">Developed a machine vision algorithm for marine debris detection and designed the embedded system architecture for the CubeSat platform.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Organizations -->
+    <div class="exp-block">
+      <p class="subsection-title">Organizations</p>
+      <div class="cards-grid">
+
+        <div class="card">
+          <div class="card-img">
+            <svg viewBox="0 0 48 48" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M24 8l-2 8h-8l6.5 5-2.5 8L24 24l6 5-2.5-8L34 16h-8z" fill="white"/><path d="M14 36h20M16 40h16" stroke="white" stroke-width="2" fill="none"/></svg>
+          </div>
+          <div class="card-body">
+            <span class="card-badge">Internship</span>
+            <h3 class="card-title">Suxus Sdn. Bhd. Short Internship</h3>
+            <p class="card-role">Drone Design, Programming &amp; Composite Fabrication</p>
+            <p class="card-desc">One-week intensive internship focused on fabricating drone structures from natural fibre, programming drones via Betaflight and Mission Planner, and full drone component design.</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-img">
+            <svg viewBox="0 0 48 48" fill="white" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="24" r="14" fill="none" stroke="white" stroke-width="2.5"/><path d="M24 10 Q32 24 24 38 Q16 24 24 10z" fill="white"/><path d="M10 24h28" stroke="white" stroke-width="2"/></svg>
+          </div>
+          <div class="card-body">
+            <span class="card-badge">Organization</span>
+            <h3 class="card-title">Putra Space Club</h3>
+            <p class="card-role">Workshop &amp; Technical Department Member</p>
+            <p class="card-desc">Active member contributing to workshop facilitation and technical operations within UPM's premier space-focused student club.</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-img">
+            <svg viewBox="0 0 48 48" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M24 6l4 10h10l-8 6 3 10-9-6-9 6 3-10-8-6h10z" fill="white"/></svg>
+          </div>
+          <div class="card-body">
+            <span class="card-badge">Organization</span>
+            <h3 class="card-title">Aeros Club UPM</h3>
+            <p class="card-role">Charity &amp; Welfare Department Member</p>
+            <p class="card-desc">Contributing to community outreach and welfare initiatives as part of the Aeros Club at Universiti Putra Malaysia.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Extracurriculars -->
+    <div class="exp-block">
+      <p class="subsection-title">Extracurriculars</p>
+      <div class="cards-grid">
+
+        <div class="card">
+          <div class="card-img">
+            <svg viewBox="0 0 48 48" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M24 4l-2 16H8l12 9-4 15 8-6 8 6-4-15 12-9H26z" fill="white"/></svg>
+          </div>
+          <div class="card-body">
+            <span class="card-badge">Extracurricular</span>
+            <h3 class="card-title">APDL Mini Space Camp "Young Rocketeer"</h3>
+            <p class="card-role">Committee Member, Avionics Provider & Presenter</p>
+            <p class="card-desc">Served as committee member, provided avionics hardware, and delivered presentations on avionics systems to young aspiring rocketeers.</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-img">
+            <svg viewBox="0 0 48 48" fill="white" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="20" r="10" fill="none" stroke="white" stroke-width="2.5"/><path d="M14 38c0-5.5 4.5-10 10-10s10 4.5 10 10" fill="none" stroke="white" stroke-width="2.5"/><circle cx="24" cy="20" r="3" fill="white"/></svg>
+          </div>
+          <div class="card-body">
+            <span class="card-badge">Extracurricular</span>
+            <h3 class="card-title">Space Hunt</h3>
+            <p class="card-role">Station Presenter & Logistics Committee</p>
+            <p class="card-desc">Presented at a designated station and contributed to event logistics as part of the Space Hunt program.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-inner">
+    <h2 class="section-title">Technical <span>Skills</span></h2>
+    <div class="section-line"></div>
+    <div class="skills-grid">
+
+      <div class="skill-category">
+        <div class="skill-cat-icon">
+          <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M5 4l-3 6 3 6M15 4l3 6-3 6M9 18l2-16"/></svg>
+        </div>
+        <p class="skill-cat-title">Programming</p>
+        <div class="tags">
+          <span class="tag">Python</span>
+          <span class="tag">Pandas</span>
+          <span class="tag">Matplotlib</span>
+          <span class="tag">SciPy</span>
+          <span class="tag">NumPy</span>
+          <span class="tag">C++</span>
+          <span class="tag">MicroPython</span>
+          <span class="tag">MatLab</span>
+          <span class="tag">GNU Octave</span>
+        </div>
+      </div>
+
+      <div class="skill-category">
+        <div class="skill-cat-icon">
+          <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="2" width="16" height="12" rx="2"/><path d="M6 18h8M10 14v4"/></svg>
+        </div>
+        <p class="skill-cat-title">CAD &amp; Simulation</p>
+        <div class="tags">
+          <span class="tag">CATIA</span>
+          <span class="tag">FreeCAD</span>
+          <span class="tag">Xfoil</span>
+        </div>
+      </div>
+
+      <div class="skill-category">
+        <div class="skill-cat-icon">
+          <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="3"/><path d="M10 2a8 8 0 100 16A8 8 0 0010 2zM2 10h16M10 2v16"/></svg>
+        </div>
+        <p class="skill-cat-title">Machine Vision</p>
+        <div class="tags">
+          <span class="tag vision">YOLO</span>
+          <span class="tag vision">OpenCV</span>
+        </div>
+      </div>
+
+      <div class="skill-category">
+        <div class="skill-cat-icon">
+          <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" fill="var(--accent)"><path d="M15.5 2a3.5 3.5 0 00-3.28 4.72L3.5 15.44A1.5 1.5 0 005.56 17.5l8.72-8.72A3.5 3.5 0 1015.5 2zm0 5a1.5 1.5 0 110-3 1.5 1.5 0 010 3z"/></svg>
+        </div>
+        <p class="skill-cat-title">Hands-On</p>
+        <div class="tags">
+          <span class="tag hands">Soldering</span>
+          <span class="tag hands">Wiring</span>
+          <span class="tag hands">Composite Fabricating</span>
+          <span class="tag hands">Milling Machine</span>
+          <span class="tag hands">Grinding Machine</span>
+          <span class="tag hands">Lathe Machine</span>
+        </div>
+      </div>
+
+      <div class="skill-category" id="lang-card">
+        <div class="skill-cat-icon">
+          <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" fill="var(--accent)"><path d="M10 2a8 8 0 100 16A8 8 0 0010 2z"/><path d="M2 10h16" stroke="var(--accent)" stroke-width="1.2" fill="none"/><path d="M10 2c-2.2 2.7-3.5 5.3-3.5 8s1.3 5.3 3.5 8c2.2-2.7 3.5-5.3 3.5-8s-1.3-5.3-3.5-8z" fill="none" stroke="var(--accent)" stroke-width="1.2"/></svg>
+        </div>
+        <p class="skill-cat-title">Languages</p>
+        <div class="lang-list">
+
+          <div class="lang-item" onclick="toggleLang(this)">
+            <div class="lang-header">
+              <span class="tag lang">Bahasa Indonesia</span>
+              <span class="lang-toggle-icon">＋</span>
+            </div>
+            <div class="lang-detail">Native / Bilingual Proficiency - primary language since birth, full command across formal and informal registers.</div>
+          </div>
+
+          <div class="lang-item" onclick="toggleLang(this)">
+            <div class="lang-header">
+              <span class="tag lang">English</span>
+              <span class="lang-toggle-icon">＋</span>
+            </div>
+            <div class="lang-detail">Full Professional Proficiency - used daily for academic work, technical documentation, and international competitions.</div>
+          </div>
+
+          <div class="lang-item" onclick="toggleLang(this)">
+            <div class="lang-header">
+              <span class="tag lang">Bahasa Melayu</span>
+              <span class="lang-toggle-icon">＋</span>
+            </div>
+            <div class="lang-detail">Professional Proficiency - fluent in everyday and academic contexts through study and life in Malaysia.</div>
+          </div>
+
+          <div class="lang-item" onclick="toggleLang(this)">
+            <div class="lang-header">
+              <span class="tag lang">French</span>
+              <span class="lang-toggle-icon">＋</span>
+            </div>
+            <div class="lang-detail">Elementary Proficiency (A1 in progress) - currently undertaking formal A1 coursework to build foundational communication skills.</div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-inner">
+    <h2 class="section-title">Academic &amp; Personal <span>Projects</span></h2>
+    <div class="section-line"></div>
+    <div class="awards-row">
+
+      <div class="project-card" onclick="window.location.href='aircraft.html'" style="cursor:pointer;" title="View Aircraft Designs">
+        <div class="project-header">
+          <h3 class="project-title">Conceptual Aircraft Design (Passion Project)</h3>
+          <span class="project-date" style="color:#22c55e;font-weight:700;">Present</span>
+        </div>
+        <p class="project-role">Aircraft Designer</p>
+        <p class="project-desc">Designing conceptual aircraft in <em>Flyout</em>, a highly realistic aircraft design simulator that covers engine configuration, fuselage, and wing design. This ongoing project improves my design intuition and demonstrates familiarity with aircraft design principles.</p>
+        <div class="project-tags">
+          <span class="project-tag">Aircraft Design</span>
+          <span class="project-tag">Aerodynamics</span>
+          <span class="project-tag">Propulsion</span>
+          <span class="project-tag">Conceptual Design</span>
+          <span class="project-tag">Flyout</span>
+        </div>
+        <div style="margin-top:0.9rem;display:flex;align-items:center;gap:0.4rem;font-size:0.78rem;font-weight:600;color:var(--accent);">
+          <svg viewBox="0 0 16 16" fill="currentColor" style="width:13px;height:13px;"><path d="M3 8h8M8 5l3 3-3 3"/></svg>
+          View Designs
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-header">
+          <h3 class="project-title">VEMSAT 2U CubeSat Concept Project (Satellite Technology Project)</h3>
+          <span class="project-date">Oct 2025</span>
+        </div>
+        <p class="project-role">Avionics, Thermal Control &amp; Communication Team</p>
+        <p class="project-desc">Developed the concept for a Vegetation and Environmental Monitoring Satellite (VEMSAT). Contributed to avionics and payload design, thermal analysis, and communication subsystems.</p>
+        <div class="project-tags">
+          <span class="project-tag">CubeSat</span>
+          <span class="project-tag">Avionics</span>
+          <span class="project-tag">Thermal Analysis</span>
+          <span class="project-tag">CATIA</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-header">
+          <h3 class="project-title">Automatic Water Pump System (Control System Analysis Project)</h3>
+          <span class="project-date">Oct 2025</span>
+        </div>
+        <p class="project-role">Programmer &amp; Embedded System Engineer</p>
+        <p class="project-desc">Developed an automatic water pump system that senses water level with an ultrasonic sensor using MyRio FPGA and LabVIEW. Demonstrated closed-loop feedback logic applied to a real physical system with sensors and peripherals.</p>
+        <div class="project-tags">
+          <span class="project-tag">LabVIEW</span>
+          <span class="project-tag">MyRio FPGA</span>
+          <span class="project-tag">Control Systems</span>
+          <span class="project-tag">Sensors</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-header">
+          <h3 class="project-title">Linear 1-DOF Spring Mass System Simulation (Personal Project)</h3>
+          <span class="project-date">Sept 2025</span>
+        </div>
+        <p class="project-role">Programmer</p>
+        <p class="project-desc">Built a 1-DOF vibration simulation in Python to model linear oscillatory system behaviour, applying numerical methods to visualise system vibration response.</p>
+        <div class="project-tags">
+          <span class="project-tag">Python</span>
+          <span class="project-tag">SciPy</span>
+          <span class="project-tag">Matplotlib</span>
+          <span class="project-tag">Vibration</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-header">
+          <h3 class="project-title">CubeSat / Lunar Lander Landing System Prototype (Aerospace Electrical &amp; Electronics Project)</h3>
+          <span class="project-date">Dec 2024</span>
+        </div>
+        <p class="project-role">Programmer, Embedded System Engineer &amp; Designer</p>
+        <p class="project-desc">Proof-of-concept lunar lander using ultrasonic sensors for automatic strut deployment and a hall-effect sensor for touchdown detection. Designed the suspension mechanism in CATIA.</p>
+        <div class="project-tags">
+          <span class="project-tag">Embedded C++</span>
+          <span class="project-tag">CATIA</span>
+          <span class="project-tag">Sensors</span>
+          <span class="project-tag">Prototyping</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-header">
+          <h3 class="project-title">Balsa Wood Model Glider (Fluid Mechanics Project)</h3>
+          <span class="project-date">Dec 2024</span>
+        </div>
+        <p class="project-role">Designer &amp; Fabricator</p>
+        <p class="project-desc">Designed and built a catapult-launched balsa wood glider capable of sustaining flight for over 20 seconds, applying aerodynamics principles from coursework.</p>
+        <div class="project-tags">
+          <span class="project-tag">Aerodynamics</span>
+          <span class="project-tag">Fabrication</span>
+          <span class="project-tag">Xfoil</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- INTERESTS -->
+<section id="interests">
+  <div class="section-inner">
+    <h2 class="section-title">Interests &amp; <span>Passions</span></h2>
+    <div class="section-line"></div>
+    <div class="interests-wrap">
+
+      <!-- Aerospace Defence: shield with target reticle -->
+      <div class="interest-chip">
+        <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" fill="var(--accent)"><path d="M10 2L3 5v5c0 4.4 3 8.1 7 9 4-0.9 7-4.6 7-9V5l-7-3zm0 2.2l5 2.2V10c0 3-1.9 5.7-5 6.7C7.9 15.7 6 13 6 10V6.4l4-2.2z"/><circle cx="10" cy="10" r="2"/><path d="M10 6v2M10 12v2M6 10h2M12 10h2"/></svg>
+        Aerospace Defence Technology
+      </div>
+
+      <!-- Aerospace Engineering: wing/airfoil cross-section -->
+      <div class="interest-chip">
+        <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" fill="var(--accent)"><path d="M2 11c0 0 3-4 9-4s9 3 9 3l-2 2c0 0-3-2-7-2s-6 2-6 2L2 11z"/><path d="M4 12l1 3 2-1-1-3" fill="var(--accent)"/></svg>
+        Aerospace Engineering
+      </div>
+
+      <!-- Rocketry: rocket pointing up -->
+      <div class="interest-chip">
+        <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" fill="var(--accent)"><path d="M10 2c-1 2-2 5-2 8h4c0-3-1-6-2-8z"/><path d="M8 10v4h4v-4H8z"/><path d="M8 14l-2 3h8l-2-3H8z"/><path d="M7 10c-1 0-2 1-2 2v1l2-1V10zM13 10c1 0 2 1 2 2v1l-2-1V10z"/></svg>
+        Rocketry
+      </div>
+
+      <!-- UAV & Drones: quadcopter top-down view -->
+      <div class="interest-chip">
+        <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" fill="var(--accent)"><circle cx="10" cy="10" r="2"/><line x1="10" y1="8" x2="10" y2="4" stroke="var(--accent)" stroke-width="1.5" fill="none"/><line x1="10" y1="12" x2="10" y2="16" stroke="var(--accent)" stroke-width="1.5" fill="none"/><line x1="8" y1="10" x2="4" y2="10" stroke="var(--accent)" stroke-width="1.5" fill="none"/><line x1="12" y1="10" x2="16" y2="10" stroke="var(--accent)" stroke-width="1.5" fill="none"/><circle cx="10" cy="4" r="1.5"/><circle cx="10" cy="16" r="1.5"/><circle cx="4" cy="10" r="1.5"/><circle cx="16" cy="10" r="1.5"/></svg>
+        UAV &amp; Drones
+      </div>
+
+      <!-- CubeSat & Space Systems: satellite with solar panels -->
+      <div class="interest-chip">
+        <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" fill="var(--accent)"><rect x="8" y="8" width="4" height="4" rx="0.5"/><rect x="2" y="9" width="5" height="2" rx="0.5"/><rect x="13" y="9" width="5" height="2" rx="0.5"/><path d="M10 3l1 2H9l1-2zM10 17l-1-2h2l-1 2z" fill="var(--accent)"/><path d="M3 4l2 2M15 4l2 2M3 16l2-2M15 16l2-2" stroke="var(--accent)" stroke-width="1" fill="none"/></svg>
+        CubeSat &amp; Space Systems
+      </div>
+
+      <!-- Drums & Music: musical note -->
+      <div class="interest-chip">
+        <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" fill="var(--accent)"><path d="M14 3v8.5a2.5 2.5 0 11-1-2V6l-5 1v6.5a2.5 2.5 0 11-1-2V5.5L14 3z"/></svg>
+        Drums &amp; Music
+      </div>
+
+      <!-- Sports: running figure -->
+      <div class="interest-chip">
+        <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" fill="var(--accent)"><circle cx="12" cy="3.5" r="1.5"/><path d="M10 6.5l-2 3 3 1-1 4h1.5l1.5-4.5-2-1 1-1.5 2 1.5h2V7.5h-2.5L10 6.5zM7 9.5L5 14h1.5l1.5-3.5L7 9.5z"/></svg>
+        Sports
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER / CONTACT -->
+<footer id="contact">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span class="nav-brand">Satrio Arya Daniswara's <span>Portfolio</span></span>
+      <p>Aerospace Engineering undergraduate at Universiti Putra Malaysia. Avionics. Embedded Systems. Structural Design.</p>
+    </div>
+    <div class="footer-contacts">
+      <h4>Get in Touch</h4>
+
+      <div class="contact-item">
+        <div class="contact-icon">
+          <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 2a6 6 0 00-6 6c0 4.5 6 10 6 10s6-5.5 6-10a6 6 0 00-6-6zm0 8a2 2 0 110-4 2 2 0 010 4z"/></svg>
+        </div>
+        <div>
+          <div style="font-size:0.76rem;color:rgba(255,255,255,0.4);margin-bottom:1px;">Address</div>
+          43400 Seri Kembangan, Selangor, Malaysia
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <div class="contact-icon">
+          <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="4" width="16" height="12" rx="2"/><path d="M2 7l8 5 8-5"/></svg>
+        </div>
+        <div>
+          <div style="font-size:0.76rem;color:rgba(255,255,255,0.4);margin-bottom:1px;">Email</div>
+          <a href="/cdn-cgi/l/email-protection#586a69606b6d60182b2c2d3c3d362c762d2835763d3c2d763521"><span class="__cf_email__" data-cfemail="b0828188838588f0c3c4c5d4d5dec49ec5c0dd9ed5d4c59eddc9">[email&#160;protected]</span></a>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <div class="contact-icon">
+          <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M3 5a2 2 0 012-2h1.5l2 4.5-1.5 1.5c1 2 2.5 3.5 4.5 4.5L13 12l4.5 2V15.5A2 2 0 0115.5 17C8 17 3 12 3 5z"/></svg>
+        </div>
+        <div>
+          <div style="font-size:0.76rem;color:rgba(255,255,255,0.4);margin-bottom:1px;">Phone</div>
+          <a href="tel:+60132354858">+601 3235 4858</a>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <div class="contact-icon">
+          <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="2" width="16" height="16" rx="3"/><path d="M6 9v6M6 6v1M10 15v-5a2 2 0 014 0v5M10 10v5" fill="none" stroke="var(--accent)" stroke-width="1.5"/></svg>
+        </div>
+        <div>
+          <div style="font-size:0.76rem;color:rgba(255,255,255,0.4);margin-bottom:1px;">LinkedIn</div>
+          <a href="https://linkedin.com/in/satrio-arya-daniswara" target="_blank" rel="noopener">linkedin.com/in/satrio-arya-daniswara</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="footer-copy">
+    &copy; 2025 Satrio Arya Daniswara &mdash; Aerospace Engineering Portfolio
+  </div>
 </footer>
+
+<script>
+  const toggle = document.getElementById('navToggle');
+  const links = document.getElementById('navLinks');
+  toggle.addEventListener('click', () => links.classList.toggle('open'));
+  links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => links.classList.remove('open')));
+
+  function toggleLang(el) {
+    el.classList.toggle('open');
+  }
+</script>
 
 </body>
 </html>
