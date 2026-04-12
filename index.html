@@ -160,10 +160,13 @@
     }
     .card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(26,59,107,0.12); }
     .card-img {
-      width: 100%; height: 140px; object-fit: cover;
+      width: 100%; height: 140px;
       background: linear-gradient(135deg, var(--blue) 0%, var(--navy) 100%);
       display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
     }
+    .card-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .card-img img[src=""], .card-img img:not([src]) { display: none; }
     .card-img svg { width: 48px; height: 48px; opacity: 0.35; }
     .card-body { padding: 1.1rem 1.2rem 1.3rem; }
     .card-badge {
@@ -407,10 +410,7 @@
   <div class="hero-inner">
     <div class="hero-top">
       <div class="hero-avatar">
-        <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="40" cy="30" r="18" fill="rgba(255,255,255,0.5)"/>
-          <path d="M6 74c0-18.8 15.2-34 34-34s34 15.2 34 34" fill="rgba(255,255,255,0.5)"/>
-        </svg>
+        <img src="profile_pic.png" alt="Satrio Arya Daniswara" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">
       </div>
       <div class="hero-title-block">
         <h1 class="hero-name">Satrio Arya Daniswara</h1>
@@ -483,9 +483,7 @@
       <div class="cards-grid">
 
         <div class="card">
-          <div class="card-img">
-            <svg viewBox="0 0 48 48" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M24 4L4 14v6c0 12.4 8.5 24 20 27 11.5-3 20-14.6 20-27v-6L24 4z"/></svg>
-          </div>
+          <div class="card-img"><img src="img_teknofest2026.png" alt="Turkiye Teknofest 2026"></div>
           <div class="card-body">
             <span class="card-badge">International</span>
             <span class="card-badge" style="background:#fef3c7;color:#92400e;border:1px solid #fcd34d;margin-left:4px;">In Progress</span>
@@ -497,7 +495,7 @@
 
         <div class="card">
           <div class="card-img">
-            <svg viewBox="0 0 48 48" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M6 28l8-16h20l8 16H6z"/><path d="M8 28l2 8h28l2-8H8z" fill="rgba(255,255,255,0.4)"/><path d="M14 20h20M14 24h20" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" fill="none"/></svg>
+            <img src="img_airbus_fyi.png" alt="Airbus Fly Your Ideas 2026">
           </div>
           <div class="card-body">
             <span class="card-badge">International</span>
@@ -510,39 +508,39 @@
 
         <div class="card">
           <div class="card-img">
-            <svg viewBox="0 0 48 48" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M24 4L4 14v6c0 12.4 8.5 24 20 27 11.5-3 20-14.6 20-27v-6L24 4z"/></svg>
+            <img src="img_teknofest2025.png" alt="Turkiye Teknofest 2025">
           </div>
           <div class="card-body">
             <span class="card-badge">International</span>
             <h3 class="card-title">Turkiye Teknofest Rocket Competition 2025</h3>
             <p class="card-role">Avionics Team</p>
-            <p class="card-desc">Developed Flight Computer Controller (FCC) software and designed the full avionics architecture for the A4 category rocket entry.</p>
+            <p class="card-desc">Developed FCC software in C++ including apogee detection logic and a filtering algorithm. Designed the full avionics architecture covering microcontroller selection, sensors, RF communication module, power system, and recovery actuation.</p>
             <span class="card-award">Silver Plaque - A4 Category</span>
           </div>
         </div>
 
         <div class="card">
           <div class="card-img">
-            <svg viewBox="0 0 48 48" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M24 2L8 10v14c0 11 7 20.7 16 23.9C33 44.7 40 35 40 24V10L24 2z"/><path d="M20 28l-6-6 2-2 4 4 8-8 2 2-10 10z" fill="rgba(0,0,0,0.3)"/></svg>
+            <img src="img_mrc2025.png" alt="Malaysian Rocket Competition 2025">
           </div>
           <div class="card-body">
             <span class="card-badge">National</span>
             <h3 class="card-title">Malaysian Rocket Competition 2025</h3>
             <p class="card-role">Avionics Team, HOD Rocket Avionics &amp; Payload, and CanSat Team</p>
-            <p class="card-desc">Developed the FCC and mentored the team on sensor integration. Served as Head of Department for both the Rocket Avionics/Payload subsystem and the separate CanSat team.</p>
+            <p class="card-desc">Developed the rocket FCC in C++ covering both software and hardware. Mentored the team on component selection, sensor integration, telemetry interfacing, and flight software programming. HOD for both the Rocket Avionics/Payload and the separate CanSat team.</p>
             <span class="card-award">3rd Place</span>
           </div>
         </div>
 
         <div class="card">
           <div class="card-img">
-            <svg viewBox="0 0 48 48" fill="white" xmlns="http://www.w3.org/2000/svg"><rect x="12" y="18" width="24" height="16" rx="2" fill="white"/><path d="M18 18v-4a6 6 0 0112 0v4" fill="none" stroke="white" stroke-width="2.5"/><rect x="20" y="26" width="8" height="4" rx="1" fill="rgba(0,0,0,0.25)"/></svg>
+            <img src="img_aeros_cubesat.png" alt="Aeros CubeSat Competition">
           </div>
           <div class="card-body">
             <span class="card-badge">Competition</span>
             <h3 class="card-title">Aeros CubeSat Competition</h3>
             <p class="card-role">Programming, Embedded System & Design Team</p>
-            <p class="card-desc">Developed a machine vision algorithm for marine debris detection and designed the embedded system architecture for the CubeSat platform.</p>
+            <p class="card-desc">Developed a marine debris detection machine vision algorithm using YOLOv8, OpenCV, and MicroPython, including dataset creation, model training, and data analysis pipeline. Designed the embedded system architecture and contributed to structural design in CATIA.</p>
           </div>
         </div>
 
@@ -556,7 +554,7 @@
 
         <div class="card">
           <div class="card-img">
-            <svg viewBox="0 0 48 48" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M24 8l-2 8h-8l6.5 5-2.5 8L24 24l6 5-2.5-8L34 16h-8z" fill="white"/><path d="M14 36h20M16 40h16" stroke="white" stroke-width="2" fill="none"/></svg>
+            <img src="img_suxus.png" alt="Suxus Sdn Bhd Internship">
           </div>
           <div class="card-body">
             <span class="card-badge">Internship</span>
@@ -568,7 +566,7 @@
 
         <div class="card">
           <div class="card-img">
-            <svg viewBox="0 0 48 48" fill="white" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="24" r="14" fill="none" stroke="white" stroke-width="2.5"/><path d="M24 10 Q32 24 24 38 Q16 24 24 10z" fill="white"/><path d="M10 24h28" stroke="white" stroke-width="2"/></svg>
+            <img src="img_putra_space.png" alt="Putra Space Club">
           </div>
           <div class="card-body">
             <span class="card-badge">Organization</span>
@@ -580,7 +578,7 @@
 
         <div class="card">
           <div class="card-img">
-            <svg viewBox="0 0 48 48" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M24 6l4 10h10l-8 6 3 10-9-6-9 6 3-10-8-6h10z" fill="white"/></svg>
+            <img src="img_aeros_club.png" alt="Aeros Club UPM">
           </div>
           <div class="card-body">
             <span class="card-badge">Organization</span>
@@ -600,7 +598,7 @@
 
         <div class="card">
           <div class="card-img">
-            <svg viewBox="0 0 48 48" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M24 4l-2 16H8l12 9-4 15 8-6 8 6-4-15 12-9H26z" fill="white"/></svg>
+            <img src="img_apdl_camp.png" alt="APDL Mini Space Camp">
           </div>
           <div class="card-body">
             <span class="card-badge">Extracurricular</span>
@@ -612,7 +610,7 @@
 
         <div class="card">
           <div class="card-img">
-            <svg viewBox="0 0 48 48" fill="white" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="20" r="10" fill="none" stroke="white" stroke-width="2.5"/><path d="M14 38c0-5.5 4.5-10 10-10s10 4.5 10 10" fill="none" stroke="white" stroke-width="2.5"/><circle cx="24" cy="20" r="3" fill="white"/></svg>
+            <img src="img_space_hunt.png" alt="Space Hunt">
           </div>
           <div class="card-body">
             <span class="card-badge">Extracurricular</span>
